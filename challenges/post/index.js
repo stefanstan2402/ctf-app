@@ -1,5 +1,5 @@
 async function getData () {
-  const url = 'https://script.google.com/macros/s/AKfycbyKN3ywoFsx8KN_GPFzq-sv2Ni1eWo6X9OgcrKve3NGOwCu2FOuFAQxo5PqofizDSwh/exec?api=not-flag'
+  const url = 'https://script.google.com/macros/s/AKfycbwlgcQJ8BmnvP4zaNd4ovnplcRJxUJYTD0cAACn9hrEj4LgkmrSuVfiy04AjAtqGuY/exec?api=not-flag'
   try {
     const response = await fetch(url, {
       method: 'POST',
