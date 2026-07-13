@@ -9,12 +9,53 @@ var SHEET_NAME = 'solves';
 
 // Keep ids in sync with CHALLENGES in app.js. `hash` = SHA-256 hex of the flag.
 var ANSWERS = {
-  b64:    { points: 100, hash: 'c5bafb65ecdc6b98db0762c0fa7b1c427f1ce4387d69eb827da57adc5998467a' },
-  rot13:  { points: 150, hash: 'cd16ed0aa7a47a07d4f839ad48e1d62f6dd27f7cd4119fb7161ec5f72d5d06dd' },
-  source: { points: 50,  hash: '3970057d1399e15824a7b7e07ba6579a021f6226e037532b3da13a329f716021' },
+  console:  { points: 100, hash: 'e9f56d786de0a92f2cb27f1d703c4cb0a9a0bf5846c5acec0e7d5cec6ed26e9f' },
+  comments: { points: 100, hash: '7de7a12c2cf63d929810995272d710cee2545660d9c487fc6a5cc8d396903e6d' },
+  storage:  { points: 100, hash: '7af13823af51821247bfac495638fa82553aee5e02853287e17bc106159dfffe' },
+  id:       { points: 100, hash: 'abf6bbc732d5ad46411ca03a6fd71fec44aeab96231e40f13a91ca037e5a08e2' },
+  button:   { points: 100, hash: '8703b125c5fa16c6f5070b01744e139c3a6d16fc286f535cc4360f4cd81447ef' },
+  variable: { points: 100, hash: 'd9d1605099e2cfc9c1cbd0c1f7ce4b1aa9d3fd8580a2c0dcbf76c6cbc1bde4fe' },
+  grades:   { points: 200, hash: 'fea0a9f8ce1b6a82ef1a9404c55a4eba0beca0104415bdc95c24603d6ad5eb79' },
+  colors:   { points: 200, hash: '4d937a34c76398b2e327ae85ccce8042b5ef4eb8ee5106fac7ebd0ab88df50d5' },
+  post:     { points: 200, hash: 'f0110a2ecb10fa05a34e799bf101c3963e792210a9f54b4c6326a65fc83f818a' },
+  patch:    { points: 200, hash: '241d19404d3c3ef33fe31d4a33be773909d8cfe467ea4a5d1add656975a9d5d7' },
 };
 
+// Fake API for the "post" and "patch" challenges (the static site has no
+// backend, so this script plays the role of the original Express routes).
+// Called as POST <url>?api=<endpoint>. These flags are meant to be
+// discoverable by players — that IS the challenge.
+var API_FLAGS = {
+  'not-flag':    'flag{9f1542126021b1cfd4149786d15650a6}', // decoy
+  'flag':        'flag{854bb29bf0baa53d4316331ee46b145a}',
+  'update-flag': 'flag{f4b81eb8985d22c59bff7895135ccced}',
+};
+
+function handleApi(endpoint, data) {
+  if (endpoint === 'not-flag' || endpoint === 'flag') {
+    if ((data.api_key || null) !== 'flag_holder') {
+      return jsonResponse({ error: 'forbidden' });
+    }
+    return jsonResponse({ flag: API_FLAGS[endpoint] });
+  }
+  if (endpoint === 'update-flag') {
+    if (!data.flag) {
+      return jsonResponse({ flag: null });
+    }
+    return jsonResponse({ flag: API_FLAGS['update-flag'] });
+  }
+  return jsonResponse({ error: 'not found' });
+}
+
 function doPost(e) {
+  if (e.parameter.api) {
+    try {
+      return handleApi(e.parameter.api, JSON.parse(e.postData.contents));
+    } catch (err) {
+      return jsonResponse({ error: 'bad request' });
+    }
+  }
+
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {

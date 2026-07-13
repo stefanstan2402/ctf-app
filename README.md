@@ -64,15 +64,42 @@ const CONFIG = { SCRIPT_URL: "https://script.google.com/macros/s/…/exec" };
 
 Answers are compared after trimming whitespace and are case-sensitive.
 
-## Sample challenges (spoilers!)
+## Current challenges
 
-| id     | flag                 |
-|--------|----------------------|
-| b64    | `flag{b64_dec0der}`  |
-| rot13  | `flag{rot13_master}` |
-| source | `flag{v13w_s0urce}`  |
+The 10 challenges come from the STS Bootcamp 2025 set. Their pages live in
+`challenges/<id>/` and are served statically. The `post` and `patch`
+challenges originally used an Express API; here the Apps Script emulates it
+(`POST <script-url>?api=<endpoint>`), so `patch` was adapted from
+"fix the HTTP method" to "fix the request payload".
 
-Replace these before running a real event.
+The source material (including flags and solutions) is kept locally in
+`bootcamp-2025/`, which is **gitignored on purpose** — never commit it, the
+repo and the site are public. Flags in this repo exist only as SHA-256 hashes,
+except the ones intentionally hidden in the challenge pages themselves.
+
+## Syncing next year's set (bootcamp-2026)
+
+1. Clone/copy the new challenge repo into the project root (e.g.
+   `bootcamp-2026/`) and add that folder to `.gitignore` **before anything
+   else**.
+2. Copy each challenge's public files into `challenges/<id>/` — only
+   `index.html` and any `index.js` the page actually includes. **Never copy**
+   `solution.js` or `RESULTS.md`.
+3. Challenges that call a backend API need adapting: point their `fetch` at
+   the Apps Script URL with `?api=<endpoint>`, drop the `Content-Type` header
+   (it breaks CORS on Apps Script), and add the endpoint to `handleApi` /
+   `API_FLAGS` in `apps-script/Code.gs`. Note Apps Script only supports GET
+   and POST, so method-based challenges (PATCH/PUT/DELETE) must be reworked.
+4. For every challenge, hash its flag (recipe above) and update **both**
+   `CHALLENGES` in `app.js` and `ANSWERS` in `apps-script/Code.gs`.
+5. Update the Apps Script: paste the new `Code.gs`, then
+   **Deploy → Manage deployments → ✏️ → Version: New version → Deploy**
+   (keeps the same URL). Verify in an incognito window that the URL still
+   returns JSON without a login prompt.
+6. Reset the leaderboard: in the Google Sheet, rename the `solves` tab to
+   `solves-2025` (archives last year); the script auto-creates a fresh
+   `solves` tab on first use.
+7. Commit and push — GitHub Actions redeploys the site.
 
 ## Limitations
 

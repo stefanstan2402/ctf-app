@@ -11,28 +11,84 @@ const CONFIG = {
 // Keep ids and points in sync with ANSWERS in apps-script/Code.gs.
 const CHALLENGES = [
   {
-    id: "b64",
-    title: "Base64 Basics",
+    id: "console",
+    title: "console.log",
     points: 100,
     description:
-      "Someone left this note behind: <code>ZmxhZ3tiNjRfZGVjMGRlcn0=</code>. Decode it.",
-    hash: "c5bafb65ecdc6b98db0762c0fa7b1c427f1ce4387d69eb827da57adc5998467a",
+      'Hello, World! Open the console to find the first flag. <a href="./challenges/console/">link</a>',
+    hash: "e9f56d786de0a92f2cb27f1d703c4cb0a9a0bf5846c5acec0e7d5cec6ed26e9f",
   },
   {
-    id: "rot13",
-    title: "Roman Rotation",
-    points: 150,
+    id: "comments",
+    title: "Comments",
+    points: 100,
     description:
-      "Caesar would be proud: <code>synt{ebg13_znfgre}</code>",
-    hash: "cd16ed0aa7a47a07d4f839ad48e1d62f6dd27f7cd4119fb7161ec5f72d5d06dd",
+      'Find the flag hidden in the comments. <a href="./challenges/comments/">link</a>',
+    hash: "7de7a12c2cf63d929810995272d710cee2545660d9c487fc6a5cc8d396903e6d",
   },
   {
-    id: "source",
-    title: "Hidden in Plain Sight",
-    points: 50,
+    id: "storage",
+    title: "Local Storage",
+    points: 100,
     description:
-      "The flag is somewhere on this very page. Look closer.",
-    hash: "3970057d1399e15824a7b7e07ba6579a021f6226e037532b3da13a329f716021",
+      'Find the flag hidden in local storage. <a href="./challenges/storage/">link</a>',
+    hash: "7af13823af51821247bfac495638fa82553aee5e02853287e17bc106159dfffe",
+  },
+  {
+    id: "id",
+    title: "#id",
+    points: 100,
+    description:
+      'The element with the <code>flag</code> id hides a flag. <a href="./challenges/id/">link</a>',
+    hash: "abf6bbc732d5ad46411ca03a6fd71fec44aeab96231e40f13a91ca037e5a08e2",
+  },
+  {
+    id: "button",
+    title: "Button",
+    points: 100,
+    description:
+      'Press the button to get the flag. <a href="./challenges/button/">link</a>',
+    hash: "8703b125c5fa16c6f5070b01744e139c3a6d16fc286f535cc4360f4cd81447ef",
+  },
+  {
+    id: "variable",
+    title: "Variable",
+    points: 100,
+    description:
+      'Look inside the JavaScript files to find the flag. <a href="./challenges/variable/">link</a>',
+    hash: "d9d1605099e2cfc9c1cbd0c1f7ce4b1aa9d3fd8580a2c0dcbf76c6cbc1bde4fe",
+  },
+  {
+    id: "grades",
+    title: "Grades",
+    points: 200,
+    description:
+      'Help the teacher calculate the average grade. Flag format: <code>flag{X.XX}</code>. <a href="./challenges/grades/">link</a>',
+    hash: "fea0a9f8ce1b6a82ef1a9404c55a4eba0beca0104415bdc95c24603d6ad5eb79",
+  },
+  {
+    id: "colors",
+    title: "Colors",
+    points: 200,
+    description:
+      'Sum the <code>data-value</code> of the red circles, then of the blue ones. Flag format: <code>flag{redsum + bluesum}</code> concatenated. <a href="./challenges/colors/">link</a>',
+    hash: "4d937a34c76398b2e327ae85ccce8042b5ef4eb8ee5106fac7ebd0ab88df50d5",
+  },
+  {
+    id: "post",
+    title: "POST Request",
+    points: 200,
+    description:
+      'Make a POST request to the <code>?api=flag</code> endpoint. Inspect the page for similar requests. <a href="./challenges/post/">link</a>',
+    hash: "f0110a2ecb10fa05a34e799bf101c3963e792210a9f54b4c6326a65fc83f818a",
+  },
+  {
+    id: "patch",
+    title: "PATCH Request",
+    points: 200,
+    description:
+      'The request this page makes doesn’t quite work. Patch its payload. <a href="./challenges/patch/">link</a>',
+    hash: "241d19404d3c3ef33fe31d4a33be773909d8cfe467ea4a5d1add656975a9d5d7",
   },
 ];
 
