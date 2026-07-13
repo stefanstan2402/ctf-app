@@ -114,6 +114,24 @@ function doGet() {
   return jsonResponse({ ok: true, leaderboard: board });
 }
 
+// Reset the leaderboard: archives the current 'solves' tab under a timestamped
+// name and starts a fresh, empty one. Challenges are untouched (they live in
+// code, not in the sheet). Run it from the Apps Script editor: select
+// "resetLeaderboard" in the function dropdown at the top, press ▶ Run.
+function resetLeaderboard() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (sheet) {
+    var stamp = Utilities.formatDate(
+      new Date(),
+      Session.getScriptTimeZone(),
+      'yyyy-MM-dd-HHmmss'
+    );
+    sheet.setName(SHEET_NAME + '-' + stamp);
+  }
+  getSheet();
+}
+
 function getSheet() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAME);
