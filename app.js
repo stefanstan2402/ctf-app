@@ -3,7 +3,7 @@
 // (see README.md, step 2). Until then, solves are only saved locally.
 // ==========================================================================
 const CONFIG = {
-  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzy0trAL3s6osKPr2RgS2KAyyINZ2LO9ymx-HnJ9JpGGPTfHpIx8Blzm1K2xT48OeEZ/exec",
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwbxYbTF5La_QByN2jxyuwUpc8aHgDSeC94wKWLCyagSkVfIr7QYgYGw7mDsODMjp6b/exec",
 };
 
 // Challenges. `hash` is the SHA-256 hex of the flag — never put the plaintext
