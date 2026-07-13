@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini CTF</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Nothing to see here... or is there? flag{v13w_s0urce} -->
+  <header>
+    <h1>Mini CTF</h1>
+    <div class="player-bar">
+      <label for="player-name">Player:</label>
+      <input id="player-name" type="text" maxlength="32" placeholder="your handle">
+      <span id="player-score" class="score-badge">0 pts</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="challenges-section">
+      <h2>Challenges</h2>
+      <div id="challenges"></div>
+    </section>
+
+    <section id="leaderboard-section">
+      <div class="section-head">
+        <h2>Leaderboard</h2>
+        <button id="refresh-board" type="button">Refresh</button>
+      </div>
+      <div id="leaderboard">
+        <p class="muted">Loading…</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="muted">Static CTF · scores stored via Google Sheets</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
