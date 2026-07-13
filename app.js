@@ -124,6 +124,10 @@ function getPlayerName() {
   return $("#player-name").value.trim();
 }
 
+function getTeamName() {
+  return $("#team-name").value.trim();
+}
+
 // --- rendering ------------------------------------------------------------
 
 function renderChallenges() {
@@ -176,7 +180,8 @@ function renderLeaderboard(rows) {
       (r, i) => `
       <tr>
         <td>${i + 1}</td>
-        <td>${escapeHtml(r.name)}</td>
+        <td>${escapeHtml(r.team)}</td>
+        <td>${r.members}</td>
         <td>${r.solves}</td>
         <td>${r.points}</td>
       </tr>`
@@ -184,7 +189,7 @@ function renderLeaderboard(rows) {
     .join("");
   container.innerHTML = `
     <table>
-      <thead><tr><th>#</th><th>Player</th><th>Solves</th><th>Points</th></tr></thead>
+      <thead><tr><th>#</th><th>Team</th><th>Members</th><th>Solves</th><th>Points</th></tr></thead>
       <tbody>${body}</tbody>
     </table>
   `;
@@ -209,11 +214,12 @@ async function onSubmitFlag(event) {
   const feedback = form.parentElement.querySelector(".feedback");
   const answer = input.value.trim();
   const name = getPlayerName();
+  const team = getTeamName();
 
-  if (!name) {
-    feedback.textContent = "Set your player name first (top of the page).";
+  if (!team || !name) {
+    feedback.textContent = "Set your team and player name first (top of the page).";
     feedback.className = "feedback error";
-    $("#player-name").focus();
+    (team ? $("#player-name") : $("#team-name")).focus();
     return;
   }
   if (!answer) return;
@@ -228,28 +234,32 @@ async function onSubmitFlag(event) {
   feedback.className = "feedback ok";
   markSolved(id);
 
-  const recorded = await submitSolve(name, id, answer);
-  feedback.textContent = recorded
-    ? "Correct! Solve recorded on the leaderboard. 🎉"
-    : "Correct! (Could not reach the leaderboard — solve saved locally.)";
+  const result = await submitSolve(team, name, id, answer);
+  if (result && result.ok && result.duplicate) {
+    feedback.textContent = "Correct! Your team had already solved this one.";
+  } else if (result && result.ok) {
+    feedback.textContent = "Correct! Solve recorded for your team. 🎉";
+  } else {
+    feedback.textContent =
+      "Correct! (Could not reach the leaderboard — solve saved locally.)";
+  }
 
   renderChallenges();
   loadLeaderboard();
 }
 
-async function submitSolve(name, challengeId, answer) {
-  if (CONFIG.SCRIPT_URL.startsWith("PASTE_")) return false;
+async function submitSolve(team, name, challengeId, answer) {
+  if (CONFIG.SCRIPT_URL.startsWith("PASTE_")) return null;
   try {
     // No Content-Type header on purpose: a text/plain body keeps this a CORS
     // "simple request", which Apps Script web apps accept cross-origin.
     const res = await fetch(CONFIG.SCRIPT_URL, {
       method: "POST",
-      body: JSON.stringify({ name, challengeId, answer }),
+      body: JSON.stringify({ team, name, challengeId, answer }),
     });
-    const data = await res.json();
-    return data.ok === true;
+    return await res.json();
   } catch {
-    return false;
+    return null;
   }
 }
 
@@ -275,6 +285,12 @@ const nameInput = $("#player-name");
 nameInput.value = localStorage.getItem("ctf-name") || "";
 nameInput.addEventListener("change", () => {
   localStorage.setItem("ctf-name", nameInput.value.trim());
+});
+
+const teamInput = $("#team-name");
+teamInput.value = localStorage.getItem("ctf-team") || "";
+teamInput.addEventListener("change", () => {
+  localStorage.setItem("ctf-team", teamInput.value.trim());
 });
 
 $("#refresh-board").addEventListener("click", loadLeaderboard);

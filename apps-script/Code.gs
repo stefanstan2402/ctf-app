@@ -60,27 +60,29 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     var data = JSON.parse(e.postData.contents);
+    var team = String(data.team || '').trim().slice(0, 32);
     var name = String(data.name || '').trim().slice(0, 32);
     var challengeId = String(data.challengeId || '');
     var answer = String(data.answer || '').trim();
     var challenge = ANSWERS[challengeId];
 
-    if (!name || !challenge) {
+    if (!team || !name || !challenge) {
       return jsonResponse({ ok: false, error: 'bad request' });
     }
     if (sha256Hex(answer) !== challenge.hash) {
       return jsonResponse({ ok: false, error: 'wrong answer' });
     }
 
+    // A challenge counts once per TEAM, whichever member submits it.
     var sheet = getSheet();
     var rows = sheet.getDataRange().getValues();
     for (var i = 1; i < rows.length; i++) {
-      if (rows[i][0] === name && rows[i][1] === challengeId) {
+      if (rows[i][0] === team && rows[i][2] === challengeId) {
         return jsonResponse({ ok: true, duplicate: true });
       }
     }
 
-    sheet.appendRow([name, challengeId, challenge.points, new Date()]);
+    sheet.appendRow([team, name, challengeId, challenge.points, new Date()]);
     return jsonResponse({ ok: true });
   } catch (err) {
     return jsonResponse({ ok: false, error: 'server error' });
@@ -91,21 +93,32 @@ function doPost(e) {
 
 function doGet() {
   var rows = getSheet().getDataRange().getValues();
-  var players = {};
+  var teams = {};
 
   for (var i = 1; i < rows.length; i++) {
-    var name = rows[i][0];
-    var points = Number(rows[i][2]) || 0;
-    var time = new Date(rows[i][3]).getTime() || 0;
-    if (!players[name]) {
-      players[name] = { name: name, points: 0, solves: 0, lastSolve: 0 };
+    var team = rows[i][0];
+    var name = rows[i][1];
+    var points = Number(rows[i][3]) || 0;
+    var time = new Date(rows[i][4]).getTime() || 0;
+    if (!teams[team]) {
+      teams[team] = { team: team, points: 0, solves: 0, lastSolve: 0, memberSet: {} };
     }
-    players[name].points += points;
-    players[name].solves += 1;
-    players[name].lastSolve = Math.max(players[name].lastSolve, time);
+    teams[team].points += points;
+    teams[team].solves += 1;
+    teams[team].lastSolve = Math.max(teams[team].lastSolve, time);
+    teams[team].memberSet[name] = true;
   }
 
-  var board = Object.keys(players).map(function (k) { return players[k]; });
+  var board = Object.keys(teams).map(function (k) {
+    var t = teams[k];
+    return {
+      team: t.team,
+      points: t.points,
+      solves: t.solves,
+      lastSolve: t.lastSolve,
+      members: Object.keys(t.memberSet).length,
+    };
+  });
   // Highest points first; ties broken by who got there earlier.
   board.sort(function (a, b) {
     return b.points - a.points || a.lastSolve - b.lastSolve;
@@ -137,7 +150,7 @@ function getSheet() {
   var sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    sheet.appendRow(['name', 'challenge', 'points', 'timestamp']);
+    sheet.appendRow(['team', 'name', 'challenge', 'points', 'timestamp']);
   }
   return sheet;
 }
