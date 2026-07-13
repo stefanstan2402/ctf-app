@@ -10,10 +10,8 @@
   <header>
     <h1>Mini CTF</h1>
     <div class="player-bar">
-      <label for="team-name">Team:</label>
-      <input id="team-name" type="text" maxlength="32" placeholder="team name">
-      <label for="player-name">Player:</label>
-      <input id="player-name" type="text" maxlength="32" placeholder="your handle">
+      <span class="identity">Team <strong id="team-label">—</strong></span>
+      <span class="identity">Player <strong id="player-label">—</strong></span>
       <span id="player-score" class="score-badge">0 pts</span>
     </div>
   </header>
@@ -38,6 +36,25 @@
   <footer>
     <p class="muted">Static CTF · scores stored via Google Sheets</p>
   </footer>
+
+  <div id="join-modal" class="modal-overlay" hidden>
+    <form id="join-form" class="modal">
+      <h2>Join the CTF 🚩</h2>
+      <p class="muted">
+        Pick a team and a player name. Teammates must type the
+        <strong>exact same team name</strong>. You can't change these later.
+      </p>
+      <label>Team
+        <input id="join-team" type="text" maxlength="32" required
+               autocomplete="off" placeholder="team name">
+      </label>
+      <label>Player
+        <input id="join-name" type="text" maxlength="32" required
+               autocomplete="off" placeholder="your handle">
+      </label>
+      <button type="submit">Start hacking</button>
+    </form>
+  </div>
 
   <script src="app.js"></script>
 </body>

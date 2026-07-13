@@ -120,12 +120,13 @@ function markSolved(id) {
   localStorage.setItem("ctf-solved", JSON.stringify([...solved]));
 }
 
+// Team and player are chosen once in the join modal and then locked.
 function getPlayerName() {
-  return $("#player-name").value.trim();
+  return (localStorage.getItem("ctf-name") || "").trim();
 }
 
 function getTeamName() {
-  return $("#team-name").value.trim();
+  return (localStorage.getItem("ctf-team") || "").trim();
 }
 
 // --- rendering ------------------------------------------------------------
@@ -217,9 +218,8 @@ async function onSubmitFlag(event) {
   const team = getTeamName();
 
   if (!team || !name) {
-    feedback.textContent = "Set your team and player name first (top of the page).";
+    feedback.textContent = "Join with a team first — reload the page.";
     feedback.className = "feedback error";
-    (team ? $("#player-name") : $("#team-name")).focus();
     return;
   }
   if (!answer) return;
@@ -281,17 +281,31 @@ async function loadLeaderboard() {
 
 // --- init -------------------------------------------------------------------
 
-const nameInput = $("#player-name");
-nameInput.value = localStorage.getItem("ctf-name") || "";
-nameInput.addEventListener("change", () => {
-  localStorage.setItem("ctf-name", nameInput.value.trim());
-});
+function updateIdentityLabels() {
+  $("#team-label").textContent = getTeamName() || "—";
+  $("#player-label").textContent = getPlayerName() || "—";
+}
 
-const teamInput = $("#team-name");
-teamInput.value = localStorage.getItem("ctf-team") || "";
-teamInput.addEventListener("change", () => {
-  localStorage.setItem("ctf-team", teamInput.value.trim());
-});
+function initIdentity() {
+  updateIdentityLabels();
+  if (getTeamName() && getPlayerName()) return;
+
+  const modal = $("#join-modal");
+  modal.hidden = false;
+  $("#join-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const team = $("#join-team").value.trim();
+    const name = $("#join-name").value.trim();
+    if (!team || !name) return;
+    localStorage.setItem("ctf-team", team);
+    localStorage.setItem("ctf-name", name);
+    modal.hidden = true;
+    updateIdentityLabels();
+  });
+  $("#join-team").focus();
+}
+
+initIdentity();
 
 $("#refresh-board").addEventListener("click", loadLeaderboard);
 
