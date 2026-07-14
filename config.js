@@ -2,5 +2,5 @@
 // After deploying a new script version under a NEW URL, update it here and in
 // challenges/post/index.js + challenges/patch/index.js.
 const CONFIG = {
-  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwlgcQJ8BmnvP4zaNd4ovnplcRJxUJYTD0cAACn9hrEj4LgkmrSuVfiy04AjAtqGuY/exec",
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzFYSNhDhWcbYbcIl_T26XC1_IUfKserO2hovx27RcSaHIgjy8SC31d1nviYQlYldhu/exec",
 };
