@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teams — Mini CTF</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <h1>Teams</h1>
+      <a class="nav-link" href="./index.html">← Back to challenges</a>
+    </div>
+  </header>
+
+  <main class="single">
+    <section>
+      <div class="section-head">
+        <h2>Who's playing</h2>
+        <button id="refresh-teams" type="button">Refresh</button>
+      </div>
+      <div id="teams">
+        <p class="muted">Loading…</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="muted">Static CTF · scores stored via Google Sheets</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script>
+    const container = document.getElementById("teams");
+
+    function esc(s) {
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+      );
+    }
+
+    function render(teams) {
+      if (!teams.length) {
+        container.innerHTML = `<p class="muted">No teams yet — nobody joined so far.</p>`;
+        return;
+      }
+      container.innerHTML = teams
+        .map(
+          (t) => `
+          <div class="card">
+            <div class="card-head">
+              <h3>${esc(t.team)}</h3>
+              <span class="points">${t.members.length} member${t.members.length === 1 ? "" : "s"}</span>
+            </div>
+            <p>${t.members.map(esc).join(", ")}</p>
+          </div>`
+        )
+        .join("");
+    }
+
+    async function loadTeams() {
+      try {
+        const res = await fetch(CONFIG.SCRIPT_URL + "?view=teams");
+        const data = await res.json();
+        render(data.teams || []);
+      } catch {
+        container.innerHTML = `<p class="muted">Could not load teams. Try refreshing.</p>`;
+      }
+    }
+
+    document.getElementById("refresh-teams").addEventListener("click", loadTeams);
+    loadTeams();
+  </script>
+</body>
+</html>

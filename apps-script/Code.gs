@@ -6,6 +6,7 @@
 // point values, so a tampered frontend can't submit fake solves.
 
 var SHEET_NAME = 'solves';
+var PLAYERS_SHEET_NAME = 'players';
 
 // Keep ids in sync with CHALLENGES in app.js. `hash` = SHA-256 hex of the flag.
 var ANSWERS = {
@@ -60,6 +61,12 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     var data = JSON.parse(e.postData.contents);
+
+    // Roster registration from the join modal (no answer involved).
+    if (data.action === 'join') {
+      return handleJoin(data);
+    }
+
     var team = String(data.team || '').trim().slice(0, 32);
     var name = String(data.name || '').trim().slice(0, 32);
     var challengeId = String(data.challengeId || '');
@@ -91,7 +98,54 @@ function doPost(e) {
   }
 }
 
-function doGet() {
+function handleJoin(data) {
+  var team = String(data.team || '').trim().slice(0, 32);
+  var name = String(data.name || '').trim().slice(0, 32);
+  if (!team || !name) {
+    return jsonResponse({ ok: false, error: 'bad request' });
+  }
+  var sheet = getPlayersSheet();
+  var rows = sheet.getDataRange().getValues();
+  for (var i = 1; i < rows.length; i++) {
+    if (rows[i][0] === team && rows[i][1] === name) {
+      return jsonResponse({ ok: true, duplicate: true });
+    }
+  }
+  sheet.appendRow([team, name, new Date()]);
+  return jsonResponse({ ok: true });
+}
+
+// GET <url>?view=teams — roster of all teams and their members. Merges the
+// players tab (everyone who joined) with the solves tab (covers players who
+// solved before roster registration existed or whose join request failed).
+function teamsResponse() {
+  var teams = {};
+  function addMember(team, name) {
+    if (!team || !name) return;
+    if (!teams[team]) teams[team] = {};
+    teams[team][name] = true;
+  }
+
+  var players = getPlayersSheet().getDataRange().getValues();
+  for (var i = 1; i < players.length; i++) {
+    addMember(players[i][0], players[i][1]);
+  }
+  var solves = getSheet().getDataRange().getValues();
+  for (var j = 1; j < solves.length; j++) {
+    addMember(solves[j][0], solves[j][1]);
+  }
+
+  var list = Object.keys(teams).sort().map(function (t) {
+    return { team: t, members: Object.keys(teams[t]).sort() };
+  });
+  return jsonResponse({ ok: true, teams: list });
+}
+
+function doGet(e) {
+  if (e && e.parameter && e.parameter.view === 'teams') {
+    return teamsResponse();
+  }
+
   var rows = getSheet().getDataRange().getValues();
   var teams = {};
 
@@ -133,16 +187,21 @@ function doGet() {
 // "resetLeaderboard" in the function dropdown at the top, press ▶ Run.
 function resetLeaderboard() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var stamp = Utilities.formatDate(
+    new Date(),
+    Session.getScriptTimeZone(),
+    'yyyy-MM-dd-HHmmss'
+  );
   var sheet = ss.getSheetByName(SHEET_NAME);
   if (sheet) {
-    var stamp = Utilities.formatDate(
-      new Date(),
-      Session.getScriptTimeZone(),
-      'yyyy-MM-dd-HHmmss'
-    );
     sheet.setName(SHEET_NAME + '-' + stamp);
   }
+  var players = ss.getSheetByName(PLAYERS_SHEET_NAME);
+  if (players) {
+    players.setName(PLAYERS_SHEET_NAME + '-' + stamp);
+  }
   getSheet();
+  getPlayersSheet();
 }
 
 function getSheet() {
@@ -151,6 +210,16 @@ function getSheet() {
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
     sheet.appendRow(['team', 'name', 'challenge', 'points', 'timestamp']);
+  }
+  return sheet;
+}
+
+function getPlayersSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(PLAYERS_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(PLAYERS_SHEET_NAME);
+    sheet.appendRow(['team', 'name', 'joined']);
   }
   return sheet;
 }

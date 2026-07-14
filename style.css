@@ -41,6 +41,27 @@ h1 {
   font-size: 1.4rem;
 }
 
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+main.single {
+  grid-template-columns: 1fr;
+  max-width: 700px;
+}
+
 .player-bar {
   display: flex;
   align-items: center;

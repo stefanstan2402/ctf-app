@@ -1,10 +1,4 @@
-// ==========================================================================
-// CONFIG — paste your Apps Script Web App URL here after deploying it
-// (see README.md, step 2). Until then, solves are only saved locally.
-// ==========================================================================
-const CONFIG = {
-  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwlgcQJ8BmnvP4zaNd4ovnplcRJxUJYTD0cAACn9hrEj4LgkmrSuVfiy04AjAtqGuY/exec",
-};
+// The Apps Script URL lives in config.js (shared with teams.html).
 
 // Challenges. `hash` is the SHA-256 hex of the flag — never put the plaintext
 // flag here, this file is public. Generate hashes with the snippet in README.md.
@@ -248,6 +242,17 @@ async function onSubmitFlag(event) {
   loadLeaderboard();
 }
 
+// Register the player on the teams roster the moment they join, so teams
+// are visible before their first solve. Fire-and-forget: if it fails, the
+// roster still picks the player up from their first recorded solve.
+function registerJoin(team, name) {
+  if (CONFIG.SCRIPT_URL.startsWith("PASTE_")) return;
+  fetch(CONFIG.SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify({ action: "join", team, name }),
+  }).catch(() => {});
+}
+
 async function submitSolve(team, name, challengeId, answer) {
   if (CONFIG.SCRIPT_URL.startsWith("PASTE_")) return null;
   try {
@@ -301,6 +306,7 @@ function initIdentity() {
     localStorage.setItem("ctf-name", name);
     modal.hidden = true;
     updateIdentityLabels();
+    registerJoin(team, name);
   });
   $("#join-team").focus();
 }
