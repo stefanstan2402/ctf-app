@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootcamp</title>
+</head>
+
+<body>
+  <h3>Search</h3>
+  <form id="search-form">
+    <input id="q" type="text" placeholder="search..." autocomplete="off">
+    <button type="submit">Search</button>
+  </form>
+  <p>Results for: <span id="results"></span></p>
+
+  <script>
+    function renderResults(q) {
+      document.getElementById('results').innerHTML = q;
+    }
+
+    function revealFlag() {
+      document.getElementById('results').innerHTML += '<br>flag{90984d51caf6e3055102729f1558e686}';
+    }
+
+    const params = new URLSearchParams(location.search);
+    renderResults(params.get('q') || '');
+
+    document.getElementById('search-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      location.search = 'q=' + encodeURIComponent(document.getElementById('q').value);
+    });
+  </script>
+</body>
+</html>

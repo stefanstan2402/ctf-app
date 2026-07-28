@@ -17,12 +17,13 @@ var ANSWERS = {
   button:   { points: 100, hash: '8703b125c5fa16c6f5070b01744e139c3a6d16fc286f535cc4360f4cd81447ef' },
   variable: { points: 100, hash: 'd9d1605099e2cfc9c1cbd0c1f7ce4b1aa9d3fd8580a2c0dcbf76c6cbc1bde4fe' },
   robots:   { points: 100, hash: 'dce7526be431b86222df7e1ca9d05950be5d180e6cbabb79ac7a81b6f8e82c78' },
+  hidden:   { points: 100, hash: '859871e5eb5195cba7349081d9c7bd7e099beeb3564257aa40a3e5f475ec2191' },
+  cookie:   { points: 150, hash: '1f3b650ab794a4414c85064ecf249f18c38b7da65377ac4919d71b1d64f84c95' },
   grades:   { points: 200, hash: 'fea0a9f8ce1b6a82ef1a9404c55a4eba0beca0104415bdc95c24603d6ad5eb79' },
   colors:   { points: 200, hash: '4d937a34c76398b2e327ae85ccce8042b5ef4eb8ee5106fac7ebd0ab88df50d5' },
   post:     { points: 200, hash: 'f0110a2ecb10fa05a34e799bf101c3963e792210a9f54b4c6326a65fc83f818a' },
   patch:    { points: 200, hash: '241d19404d3c3ef33fe31d4a33be773909d8cfe467ea4a5d1add656975a9d5d7' },
-  cookie:   { points: 150, hash: '1f3b650ab794a4414c85064ecf249f18c38b7da65377ac4919d71b1d64f84c95' },
-  hidden:   { points: 100, hash: '859871e5eb5195cba7349081d9c7bd7e099beeb3564257aa40a3e5f475ec2191' },
+  xss:      { points: 250, hash: '8709f54dabc9f6bddaeadfe36378f471ebecc65a0603aa73edca623955e37000' },
 };
 
 // Fake API for the "post" and "patch" challenges (the static site has no

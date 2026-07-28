@@ -61,6 +61,22 @@ const CHALLENGES = [
     hash: "dce7526be431b86222df7e1ca9d05950be5d180e6cbabb79ac7a81b6f8e82c78",
   },
   {
+    id: "hidden",
+    title: "Hidden Element",
+    points: 100,
+    description:
+      'The flag is in an element with <code>display:none</code>. <a href="./challenges/hidden/" target="_blank" rel="noopener">link</a>',
+    hash: "859871e5eb5195cba7349081d9c7bd7e099beeb3564257aa40a3e5f475ec2191",
+  },
+  {
+    id: "cookie",
+    title: "Cookie Monster",
+    points: 150,
+    description:
+      'You\'re logged in as a plain user. Find a way to become admin. <a href="./challenges/cookie/" target="_blank" rel="noopener">link</a>',
+    hash: "1f3b650ab794a4414c85064ecf249f18c38b7da65377ac4919d71b1d64f84c95",
+  },
+  {
     id: "grades",
     title: "Grades",
     points: 200,
@@ -93,20 +109,12 @@ const CHALLENGES = [
     hash: "241d19404d3c3ef33fe31d4a33be773909d8cfe467ea4a5d1add656975a9d5d7",
   },
   {
-    id: "cookie",
-    title: "Cookie Monster",
-    points: 150,
+    id: "xss",
+    title: "Reflected XSS",
+    points: 250,
     description:
-      'You\'re logged in as a plain user. Find a way to become admin. <a href="./challenges/cookie/" target="_blank" rel="noopener">link</a>',
-    hash: "1f3b650ab794a4414c85064ecf249f18c38b7da65377ac4919d71b1d64f84c95",
-  },
-  {
-    id: "hidden",
-    title: "Hidden Element",
-    points: 100,
-    description:
-      'The flag is in an element with <code>display:none</code>. <a href="./challenges/hidden/" target="_blank" rel="noopener">link</a>',
-    hash: "859871e5eb5195cba7349081d9c7bd7e099beeb3564257aa40a3e5f475ec2191",
+      'Parametrul de căutare este afișat fără filtrare. <a href="./challenges/xss/" target="_blank" rel="noopener">link</a>',
+    hash: "8709f54dabc9f6bddaeadfe36378f471ebecc65a0603aa73edca623955e37000",
   },
 ];
 
