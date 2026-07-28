@@ -24,6 +24,7 @@ var ANSWERS = {
   post:     { points: 200, hash: 'f0110a2ecb10fa05a34e799bf101c3963e792210a9f54b4c6326a65fc83f818a' },
   patch:    { points: 200, hash: '241d19404d3c3ef33fe31d4a33be773909d8cfe467ea4a5d1add656975a9d5d7' },
   xss:      { points: 250, hash: '8709f54dabc9f6bddaeadfe36378f471ebecc65a0603aa73edca623955e37000' },
+  proto:    { points: 300, hash: '29ac3f5f84acf80c38767f6628e4850fdda5cca8ff04eaf192cd5634ab468a1b' },
 };
 
 // Fake API for the "post" and "patch" challenges (the static site has no

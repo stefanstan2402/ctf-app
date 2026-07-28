@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootcamp</title>
+</head>
+
+<body>
+  <h3>Import profile settings</h3>
+  <p>Status: <span id="status">user</span></p>
+  <textarea id="json-input" rows="4" cols="50" placeholder='{"theme":"dark"}'></textarea><br>
+  <button id="import-btn">Import</button>
+  <p id="result"></p>
+
+  <script>
+    function merge(target, source) {
+      for (const key in source) {
+        if (source[key] && typeof source[key] === 'object') {
+          if (typeof target[key] !== 'object' || target[key] === null) target[key] = {};
+          merge(target[key], source[key]);
+        } else {
+          target[key] = source[key];
+        }
+      }
+      return target;
+    }
+
+    const settings = {};
+    const session = {}; // holds the current user's role flags
+
+    function checkRole() {
+      const statusEl = document.getElementById('status');
+      const resultEl = document.getElementById('result');
+      if (session.isAdmin) {
+        statusEl.textContent = 'admin';
+        resultEl.textContent = 'Welcome, admin! flag{536d7895a8c36543261bfa08ef685833}';
+      } else {
+        statusEl.textContent = 'user';
+        resultEl.textContent = '';
+      }
+    }
+
+    document.getElementById('import-btn').addEventListener('click', () => {
+      let parsed;
+      try {
+        parsed = JSON.parse(document.getElementById('json-input').value);
+      } catch (e) {
+        document.getElementById('result').textContent = 'Invalid JSON';
+        return;
+      }
+      merge(settings, parsed);
+      checkRole();
+    });
+  </script>
+</body>
+</html>

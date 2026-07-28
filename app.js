@@ -116,6 +116,14 @@ const CHALLENGES = [
       'Parametrul de căutare este afișat fără filtrare. <a href="./challenges/xss/" target="_blank" rel="noopener">link</a>',
     hash: "8709f54dabc9f6bddaeadfe36378f471ebecc65a0603aa73edca623955e37000",
   },
+  {
+    id: "proto",
+    title: "Prototype Pollution",
+    points: 300,
+    description:
+      'Modificarea unui obiect JavaScript afectează verificarea rolului. <a href="./challenges/proto/" target="_blank" rel="noopener">link</a>',
+    hash: "29ac3f5f84acf80c38767f6628e4850fdda5cca8ff04eaf192cd5634ab468a1b",
+  },
 ];
 
 // ==========================================================================
