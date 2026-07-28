@@ -53,6 +53,14 @@ const CHALLENGES = [
     hash: "d9d1605099e2cfc9c1cbd0c1f7ce4b1aa9d3fd8580a2c0dcbf76c6cbc1bde4fe",
   },
   {
+    id: "robots",
+    title: "robots.txt",
+    points: 100,
+    description:
+      'Crawlers check <code>robots.txt</code> before looking around. Maybe you should too. <a href="./challenges/robots/">link</a>',
+    hash: "dce7526be431b86222df7e1ca9d05950be5d180e6cbabb79ac7a81b6f8e82c78",
+  },
+  {
     id: "grades",
     title: "Grades",
     points: 200,
