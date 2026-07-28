@@ -19,7 +19,8 @@
     }
 
     function revealFlag() {
-      document.getElementById('results').innerHTML += '<br>flag{90984d51caf6e3055102729f1558e686}';
+      document.getElementById('results')
+        .insertAdjacentHTML('beforeend', '<br>flag{90984d51caf6e3055102729f1558e686}');
     }
 
     const params = new URLSearchParams(location.search);
