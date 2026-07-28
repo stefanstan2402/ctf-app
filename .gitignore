@@ -1,2 +1,4 @@
 # Source material for challenges — never publish (contains flags/solutions)
 bootcamp-2025/
+.idea/
+*.iml

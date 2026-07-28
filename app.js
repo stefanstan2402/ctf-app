@@ -92,6 +92,14 @@ const CHALLENGES = [
       'The request this page makes doesn’t quite work. Patch its payload. <a href="./challenges/patch/">link</a>',
     hash: "241d19404d3c3ef33fe31d4a33be773909d8cfe467ea4a5d1add656975a9d5d7",
   },
+  {
+    id: "cookie",
+    title: "Cookie Monster",
+    points: 150,
+    description:
+      'You\'re logged in as a plain user. Find a way to become admin. <a href="./challenges/cookie/">link</a>',
+    hash: "1f3b650ab794a4414c85064ecf249f18c38b7da65377ac4919d71b1d64f84c95",
+  },
 ];
 
 // ==========================================================================

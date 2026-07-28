@@ -21,6 +21,7 @@ var ANSWERS = {
   colors:   { points: 200, hash: '4d937a34c76398b2e327ae85ccce8042b5ef4eb8ee5106fac7ebd0ab88df50d5' },
   post:     { points: 200, hash: 'f0110a2ecb10fa05a34e799bf101c3963e792210a9f54b4c6326a65fc83f818a' },
   patch:    { points: 200, hash: '241d19404d3c3ef33fe31d4a33be773909d8cfe467ea4a5d1add656975a9d5d7' },
+  cookie:   { points: 150, hash: '1f3b650ab794a4414c85064ecf249f18c38b7da65377ac4919d71b1d64f84c95' },
 };
 
 // Fake API for the "post" and "patch" challenges (the static site has no

@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootcamp</title>
+</head>
+
+<body>
+  <div id="status">You are logged in as: <b>user</b></div>
+
+  <script>
+    if (!document.cookie.includes('role=')) {
+      document.cookie = 'role=user; path=/';
+    }
+    if (document.cookie.includes('role=admin')) {
+      document.getElementById('status').innerHTML =
+        'Welcome, admin! flag{cookie_monster}';
+    }
+  </script>
+</body>
+</html>
