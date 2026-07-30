@@ -9,7 +9,7 @@ const CHALLENGES = [
     title: "console.log",
     points: 100,
     description:
-      'Hello, World! Open the console to find the first flag. <a href="./challenges/console/" target="_blank" rel="noopener">link</a>',
+      'Deschide consola pentru a găsi primul flag. <a href="./challenges/console/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "e9f56d786de0a92f2cb27f1d703c4cb0a9a0bf5846c5acec0e7d5cec6ed26e9f",
   },
   {
@@ -17,7 +17,7 @@ const CHALLENGES = [
     title: "Comments",
     points: 100,
     description:
-      'Find the flag hidden in the comments. <a href="./challenges/comments/" target="_blank" rel="noopener">link</a>',
+      'Find the flag hidden in the comments. <a href="./challenges/comments/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "7de7a12c2cf63d929810995272d710cee2545660d9c487fc6a5cc8d396903e6d",
   },
   {
@@ -25,7 +25,7 @@ const CHALLENGES = [
     title: "Local Storage",
     points: 100,
     description:
-      'Find the flag hidden in local storage. <a href="./challenges/storage/" target="_blank" rel="noopener">link</a>',
+      'Find the flag hidden in local storage. <a href="./challenges/storage/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "7af13823af51821247bfac495638fa82553aee5e02853287e17bc106159dfffe",
   },
   {
@@ -33,7 +33,7 @@ const CHALLENGES = [
     title: "#id",
     points: 100,
     description:
-      'The element with the <code>flag</code> id hides a flag. <a href="./challenges/id/" target="_blank" rel="noopener">link</a>',
+      'The element with the <code>flag</code> id hides a flag. <a href="./challenges/id/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "abf6bbc732d5ad46411ca03a6fd71fec44aeab96231e40f13a91ca037e5a08e2",
   },
   {
@@ -41,7 +41,7 @@ const CHALLENGES = [
     title: "Button",
     points: 100,
     description:
-      'Press the button to get the flag. <a href="./challenges/button/" target="_blank" rel="noopener">link</a>',
+      'Press the button to get the flag. <a href="./challenges/button/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "8703b125c5fa16c6f5070b01744e139c3a6d16fc286f535cc4360f4cd81447ef",
   },
   {
@@ -49,7 +49,7 @@ const CHALLENGES = [
     title: "Variable",
     points: 100,
     description:
-      'Look inside the JavaScript files to find the flag. <a href="./challenges/variable/" target="_blank" rel="noopener">link</a>',
+      'Look inside the JavaScript files to find the flag. <a href="./challenges/variable/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "d9d1605099e2cfc9c1cbd0c1f7ce4b1aa9d3fd8580a2c0dcbf76c6cbc1bde4fe",
   },
   {
@@ -57,7 +57,7 @@ const CHALLENGES = [
     title: "robots.txt",
     points: 100,
     description:
-      'Crawlers check <code>robots.txt</code> before looking around. Maybe you should too. <a href="./challenges/robots/" target="_blank" rel="noopener">link</a>',
+      'Crawlers check <code>robots.txt</code> before looking around. Maybe you should too. <a href="./challenges/robots/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "dce7526be431b86222df7e1ca9d05950be5d180e6cbabb79ac7a81b6f8e82c78",
   },
   {
@@ -65,7 +65,7 @@ const CHALLENGES = [
     title: "Hidden Element",
     points: 100,
     description:
-      'The flag is in an element with <code>display:none</code>. <a href="./challenges/hidden/" target="_blank" rel="noopener">link</a>',
+      'The flag is in an element with <code>display:none</code>. <a href="./challenges/hidden/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "859871e5eb5195cba7349081d9c7bd7e099beeb3564257aa40a3e5f475ec2191",
   },
   {
@@ -73,7 +73,7 @@ const CHALLENGES = [
     title: "Cookie Monster",
     points: 150,
     description:
-      'You\'re logged in as a plain user. Find a way to become admin. <a href="./challenges/cookie/" target="_blank" rel="noopener">link</a>',
+      'You\'re logged in as a plain user. Find a way to become admin. <a href="./challenges/cookie/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "1f3b650ab794a4414c85064ecf249f18c38b7da65377ac4919d71b1d64f84c95",
   },
   {
@@ -81,7 +81,7 @@ const CHALLENGES = [
     title: "Grades",
     points: 200,
     description:
-      'Help the teacher calculate the average grade. Flag format: <code>flag{X.XX}</code>. <a href="./challenges/grades/" target="_blank" rel="noopener">link</a>',
+      'Help the teacher calculate the average grade. Flag format: <code>flag{X.XX}</code>. <a href="./challenges/grades/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "fea0a9f8ce1b6a82ef1a9404c55a4eba0beca0104415bdc95c24603d6ad5eb79",
   },
   {
@@ -89,7 +89,7 @@ const CHALLENGES = [
     title: "Colors",
     points: 200,
     description:
-      'Sum the <code>data-value</code> of the red circles, then of the blue ones. Flag format: <code>flag{redsum + bluesum}</code> concatenated. <a href="./challenges/colors/" target="_blank" rel="noopener">link</a>',
+      'Sum the <code>data-value</code> of the red circles, then of the blue ones. Flag format: <code>flag{redsum + bluesum}</code> concatenated. <a href="./challenges/colors/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "4d937a34c76398b2e327ae85ccce8042b5ef4eb8ee5106fac7ebd0ab88df50d5",
   },
   {
@@ -97,7 +97,7 @@ const CHALLENGES = [
     title: "POST Request",
     points: 200,
     description:
-      'Make a POST request to the <code>?api=flag</code> endpoint. Inspect the page for similar requests. <a href="./challenges/post/" target="_blank" rel="noopener">link</a>',
+      'Make a POST request to the <code>?api=flag</code> endpoint. Inspect the page for similar requests. <a href="./challenges/post/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "f0110a2ecb10fa05a34e799bf101c3963e792210a9f54b4c6326a65fc83f818a",
   },
   {
@@ -105,7 +105,7 @@ const CHALLENGES = [
     title: "PATCH Request",
     points: 200,
     description:
-      'The request this page makes doesn’t quite work. Patch its payload. <a href="./challenges/patch/" target="_blank" rel="noopener">link</a>',
+      'The request this page makes doesn’t quite work. Patch its payload. <a href="./challenges/patch/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "241d19404d3c3ef33fe31d4a33be773909d8cfe467ea4a5d1add656975a9d5d7",
   },
   {
@@ -113,7 +113,7 @@ const CHALLENGES = [
     title: "Reflected XSS",
     points: 250,
     description:
-      'Parametrul de căutare este afișat fără filtrare. <a href="./challenges/xss/" target="_blank" rel="noopener">link</a>',
+      'Parametrul de căutare este afișat fără filtrare. <a href="./challenges/xss/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "8709f54dabc9f6bddaeadfe36378f471ebecc65a0603aa73edca623955e37000",
   },
   {
@@ -121,7 +121,7 @@ const CHALLENGES = [
     title: "Prototype Pollution",
     points: 300,
     description:
-      'Modificarea unui obiect JavaScript afectează verificarea rolului. <a href="./challenges/proto/" target="_blank" rel="noopener">link</a>',
+      'Modificarea unui obiect JavaScript afectează verificarea rolului. <a href="./challenges/proto/" target="_blank" rel="noopener" class="challenge-link">link</a>',
     hash: "29ac3f5f84acf80c38767f6628e4850fdda5cca8ff04eaf192cd5634ab468a1b",
   },
 ];
