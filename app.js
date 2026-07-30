@@ -113,7 +113,8 @@ const CHALLENGES = [
     title: "Reflected XSS",
     points: 250,
     description:
-      'Parametrul de căutare este afișat fără filtrare. <code>HINT: poți folosi o poză</code> <code>HINT 2: vezi sursa</code> <a href="./challenges/xss/" target="_blank" rel="noopener" class="challenge-link">link</a>',
+      'Parametrul de căutare este afișat fără filtrare. <a href="./challenges/xss/" target="_blank" rel="noopener" class="challenge-link">link</a>',
+    hints: ["poți folosi o poză", "vezi sursa"],
     hash: "8709f54dabc9f6bddaeadfe36378f471ebecc65a0603aa73edca623955e37000",
   },
   {
@@ -121,7 +122,8 @@ const CHALLENGES = [
     title: "Prototype Pollution",
     points: 300,
     description:
-      'Modificarea unui obiect JavaScript afectează verificarea rolului. <code>HINT: Prototype pollution, isAdmin</code> <a href="./challenges/proto/" target="_blank" rel="noopener" class="challenge-link">link</a>',
+      'Modificarea unui obiect JavaScript afectează verificarea rolului. <a href="./challenges/proto/" target="_blank" rel="noopener" class="challenge-link">link</a>',
+    hints: ["Prototype pollution, isAdmin"],
     hash: "29ac3f5f84acf80c38767f6628e4850fdda5cca8ff04eaf192cd5634ab468a1b",
   },
 ];
@@ -179,6 +181,7 @@ function renderChallenges() {
         <span class="points">${ch.points} pts</span>
       </div>
       <p>${ch.description}</p>
+      ${renderHints(ch.hints)}
       <form data-id="${ch.id}">
         <input type="text" placeholder="flag{...}" autocomplete="off"
                ${solved.has(ch.id) ? "disabled" : ""}>
@@ -189,10 +192,34 @@ function renderChallenges() {
       <p class="feedback" aria-live="polite"></p>
     `;
     card.querySelector("form").addEventListener("submit", onSubmitFlag);
+    for (const btn of card.querySelectorAll(".hint-btn")) {
+      btn.addEventListener("click", onToggleHint);
+    }
     container.appendChild(card);
   }
 
   updateScore();
+}
+
+function renderHints(hints) {
+  if (!hints || !hints.length) return "";
+  return `
+    <div class="hints">
+      ${hints
+        .map(
+          (hint, i) => `
+        <button type="button" class="hint-btn">Hint ${i + 1}</button>
+        <span class="hint-text" hidden>${hint}</span>`
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function onToggleHint(event) {
+  const btn = event.currentTarget;
+  const text = btn.nextElementSibling;
+  text.hidden = !text.hidden;
 }
 
 function updateScore() {

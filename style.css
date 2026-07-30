@@ -179,6 +179,39 @@ code {
   filter: brightness(1.1);
 }
 
+.hints {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.7rem;
+}
+
+.hint-btn {
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hint-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.hint-text {
+  color: var(--text);
+  font-size: 0.85rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+}
+
 form {
   display: flex;
   gap: 0.5rem;
