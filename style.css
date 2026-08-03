@@ -8,6 +8,7 @@
   --accent: #4f8cff;
   --ok: #3ecf8e;
   --err: #ff6b6b;
+  --link: #ffa657;
 }
 
 * {
@@ -165,18 +166,23 @@ code {
 
 .challenge-link {
   display: inline-block;
-  background: var(--accent);
-  color: #fff;
+  background: transparent;
+  color: var(--link);
   text-decoration: none;
+  border: 1px solid var(--link);
   border-radius: 6px;
-  padding: 0.2rem 0.6rem;
+  padding: 0.1rem 0.55rem;
   font-size: 0.85em;
   font-weight: 600;
   margin-left: 0.25rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.challenge-link:hover {
-  filter: brightness(1.1);
+.challenge-link:hover,
+.challenge-link:focus-visible {
+  background: var(--link);
+  color: var(--bg);
+  outline: none;
 }
 
 .hints {
