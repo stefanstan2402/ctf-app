@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Seiful Consolei</title>
+</head>
+<body>
+  <h1>Șeriful Consolei</h1>
+  <p>Un flag este ascuns în DOM-ul acestei pagini, în două bucăți. Nimic util nu este vizibil pe pagină.</p>
+  <p>Reguli:</p>
+  <ul>
+    <li>Două elemente din DOM conțin, fiecare, câte o jumătate din flag, codificată în base64, într-un atribut data.</li>
+    <li>Selectează fiecare element, concatenează cele două valori în ordine, apoi decodifică rezultatul din base64.</li>
+    <li>Format: flag{...}</li>
+  </ul>
+  <p>Indicii:</p>
+  <ul>
+    <li>Elementele nu se văd pe pagină, dar tot există în DOM.</li>
+    <li>Poți selecta un element după id cu <code>document.querySelector('#id')</code>.</li>
+    <li>Valoarea din atributul data se citește cu <code>.dataset</code>.</li>
+  </ul>
+
+  <div id="alpha" data-x="ZmxhZ3tzaDRyZDNkX3F1" style="display:none;"></div>
+  <div id="beta" data-x="M3J5X3MzbDNjdDByfQ==" style="display:none;"></div>
+
+</body>
+</html>

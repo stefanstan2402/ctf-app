@@ -77,6 +77,14 @@ const CHALLENGES = [
     hash: "1f3b650ab794a4414c85064ecf249f18c38b7da65377ac4919d71b1d64f84c95",
   },
   {
+    id: "random",
+    title: "Console Chief",
+    points: 200,
+    description:
+      'Un flag este ascuns în DOM-ul acestei pagini, în două bucăți. Nimic util nu este vizibil pe pagină. <a href="./challenges/random/" target="_blank" rel="noopener" class="challenge-link">link</a>',
+    hash: "93cebdb11d1e52d3339025b3e92838509e037f76380be1c47374a333b0a459cc",
+  },
+  {
     id: "grades",
     title: "Grades",
     points: 200,
