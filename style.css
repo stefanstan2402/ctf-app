@@ -9,6 +9,7 @@
   --ok: #3ecf8e;
   --err: #ff6b6b;
   --link: #ffa657;
+  --points: #b48ef7;
 }
 
 * {
@@ -143,7 +144,7 @@ h2 {
 }
 
 .points {
-  color: var(--accent);
+  color: var(--points);
   font-size: 0.85rem;
   font-weight: 600;
 }
